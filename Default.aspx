@@ -149,9 +149,23 @@
                 <div class="textroundbox">
                     <h3>Please log in:</h3>
                     Username
-					<asp:TextBox ID="tbUsername" runat="server" Width="150px"></asp:TextBox><br />
+					<asp:TextBox ID="tbUsername" runat="server" Width="150px"></asp:TextBox>
+					<br />
+					<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
+						ControlToValidate="tbUsername" 
+						ErrorMessage="The username can only alphanumeric characters" Font-Size="Small" 
+						ForeColor="Red" ValidationExpression="^[a-zA-Z0-9]*$"></asp:RegularExpressionValidator>
+					<br />
+					<br />
 		            Password	                                  
-					<asp:TextBox ID="tbPassword" runat="server" Width="150px"></asp:TextBox><br />
+					<asp:TextBox ID="tbPassword" runat="server" Width="150px"></asp:TextBox>
+					<br />
+					<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" 
+						ControlToValidate="tbPassword" 
+						ErrorMessage="The password can only alphanumeric characters" Font-Size="Small" 
+						ForeColor="Red" ValidationExpression="^[a-zA-Z0-9]*$"></asp:RegularExpressionValidator>
+					<br />
+					<br />
 					<asp:Button ID="btnLogin" runat="server" Text="Login" />
 					<asp:Button ID="btnReset" runat="server" Text="Reset" />
                     &nbsp;<asp:Label ID="lblLogin" runat="server" Text="" ForeColor="#CC3366"></asp:Label><br /><br />
