@@ -4,9 +4,25 @@ Imports System.Data.SqlClient
 Partial Class _Default
     Inherits System.Web.UI.Page
 
-    Protected Sub btnLogin_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLogin.Click
-        Dim connAuthenticate As New SqlConnection
-        connAuthenticate.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("GradesCentralConnectionString").ConnectionString
+	Protected Sub btnLogin_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLogin.Click
+		Dim validInput As Boolean = False
+		Dim sqlInjectionRegex As New Regex("\'|\;|\-|\=|\(|\)")
+
+		If Not Regex.IsMatch(tbUsername.Text, sqlInjectionRegex.ToString) Then
+			validInput = True
+		End If
+
+		If Not Regex.IsMatch(tbPassword.Text, sqlInjectionRegex.ToString) Then
+			validInput = True
+		End If
+
+		If Not validInput Then
+			lblLogin.Text = "Invalid credential."
+			Return
+		End If
+
+		Dim connAuthenticate As New SqlConnection
+		connAuthenticate.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings("GradesCentralConnectionString").ConnectionString
 		connAuthenticate.Open()
 
 		' Dim strSQL As String = "SELECT * FROM Students WHERE Username = '" & tbUsername.Text & "' and Password = '" & tbPassword.Text & "'"
@@ -51,6 +67,6 @@ Partial Class _Default
         lblGradesUser.Visible = False
         lblStudentsAll.Visible = False
         lblGradesAll.Visible = False
-        lblSQLStatement.Visible = False
+		lblSQLStatement.Visible = False
     End Sub
 End Class
